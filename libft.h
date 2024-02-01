@@ -6,7 +6,7 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:56:18 by tabadawi          #+#    #+#             */
-/*   Updated: 2023/11/28 15:18:04 by tabadawi         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:30:17 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_split
+{
+	int		i;
+	char	**split;
+	int		wordcount;
+}	t_split;
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t len);

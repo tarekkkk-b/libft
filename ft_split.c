@@ -6,11 +6,19 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:19:13 by tabadawi          #+#    #+#             */
-/*   Updated: 2023/12/04 14:32:05 by tabadawi         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:32:47 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	**freeer(char **split, int i)
+{
+	while (i-- > 0)
+		free (split[i]);
+	free (split);
+	return (NULL);
+}
 
 static int	words(const char *s, char c)
 {
@@ -56,16 +64,14 @@ static char	*wordsize(const char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	char	**split;
-	int		wordcount;
+	t_split	var;
 
-	i = 0;
+	var.i = 0;
 	if (!s)
 		return (NULL);
-	wordcount = words(s, c);
-	split = malloc(sizeof(char *) * (wordcount + 1));
-	if (!split)
+	var.wordcount = words(s, c);
+	var.split = malloc(sizeof(char *) * (var.wordcount + 1));
+	if (!var.split)
 		return (NULL);
 	while (*s)
 	{
@@ -73,12 +79,14 @@ char	**ft_split(char const *s, char c)
 			s++;
 		if (*s && *s != c)
 		{
-			split[i] = wordsize(s, c);
-			i++;
+			var.split[var.i] = wordsize(s, c);
+			if (!var.split[var.i])
+				return (freeer(var.split, var.i));
+			var.i++;
 			while (*s && *s != c)
 				s++;
 		}
 	}
-	split[i] = (NULL);
-	return (split);
+	var.split[var.i] = (NULL);
+	return (var.split);
 }
